@@ -1,0 +1,668 @@
+@import 'fonts.css';
+
+@font-face {
+    font-family: bn;
+    src: url(./B-NAZANIN.TTF);
+}
+
+:root {
+    --background: #fff;
+    --text: #5e5e60;
+    --line: #e7eaec;
+    --item: #f1f3f5;
+    --item_head: #f1f3f5;
+    --icon: #b6bdc3;
+    --hover_icon: #e1e4e9;
+    --red: #fa8072;
+    --red_hover: #d54f4f30;
+    --off-text: #8e8e94;
+}
+
+.dark {
+    --background: #171717;
+    --text: #cacaca;
+    --line: #36383a;
+    --item: #2b2b2b;
+    --item_head: #2b2b2b;
+    --icon: #757575;
+    --hover_icon: #616161;
+    --red: #a23129;
+    --red_hover: #ee000050;
+    --off-text: #8e8e94;
+}
+
+
+.frame_bar {
+    --item: var(--item_head) !important;
+    --tools: var(--hover_icon) !important;
+    --filter-color: var(--red_hover) !important;
+    --off-color: var(--icon) !important;
+    --color: var(--red) !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+html {
+    height: 100%;
+    font-family:  system-ui, bn;
+}
+
+input,
+select,
+textarea {
+    font-family:  system-ui, bn;
+}
+
+body {
+    height: 100%;
+    background: var(--background);
+    color: var(--text);
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.alignh {
+    display: flex;
+    align-items: center;
+}
+
+.alignv {
+    display: flex;
+    justify-content: center;
+}
+
+
+:hover::-webkit-scrollbar-thumb,
+:hover::-webkit-scrollbar-track {
+    visibility: visible
+}
+
+::-webkit-scrollbar {
+    background: rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    width: 5px;
+    height: 5px
+}
+
+::-webkit-scrollbar-track {
+    /* visibility: hidden; */
+    background: rgba(170, 170, 170, .15);
+    border-radius: 5px
+}
+
+::-webkit-scrollbar-thumb {
+    visibility: hidden;
+    border-radius: 5px;
+    background: rgba(170, 170, 170, .9)
+}
+
+.draged {
+    background: var(--red_hover);
+}
+
+.main {
+    width: 100%;
+    height: calc(100% - 28px);
+    display: flex;
+    flex-direction: column;
+}
+
+.page {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.console {
+    background: var(--item);
+    height: 32px;
+    position: relative;
+    transition: 200ms;
+}
+
+.console.expanded {
+    height: 280px;
+}
+
+.console_expade {
+    width: 30px;
+    background: var(--item);
+    height: 30px;
+    top: -20px;
+    border-radius: 100px;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%);
+}
+
+.console_expade .icon {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 31px;
+    color: var(--icon);
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    transition: all ease 200ms;
+}
+
+.console .icon {
+    transition: 200ms;
+}
+
+.expanded .console_expade .icon {
+    transform: rotate(180deg);
+}
+
+.console .console_rec {
+    overflow-y: hidden;
+    height: 100%;
+}
+
+.console.expanded .console_rec {
+    overflow-y: auto;
+}
+
+.section {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    padding: 20px;
+    position: relative;
+}
+
+#parent-section {
+    flex: .7;
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    padding: 20px;
+}
+
+#record-section {
+    padding: 0px;
+    height: 62px;
+    flex: none;
+}
+
+#left-section {
+    padding: 0px;
+    flex-direction: column;
+}
+
+#right-section {
+    flex: 1;
+}
+
+.share-box-parent {
+    /* display: none; */
+    position: absolute;
+    padding: 30px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    opacity: 0;
+    z-index: -10;
+    transition: opacity ease 500ms;
+    transition-delay: 100ms;
+    background: rgb(0, 0, 0, .45);
+}
+
+.share-box-parent.active {
+    opacity: 1;
+    z-index: 10;
+    transition: 0ms;
+    /* display: block; */
+}
+
+.block {
+    display: block !important;
+}
+
+.share-box {
+    position: relative;
+    width: 100%;
+    height: 48%;
+    margin-top: 2%;
+    border: 5px dashed #BDBDBD;
+    text-align: center;
+    font-size: 30pt;
+    font-weight: bolder;
+    color: #BDBDBD;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.share-box.active {
+    border: 5px dashed red;
+    color: red;
+}
+
+#upload,
+#uploadfolder,
+#launch {
+    position: relative;
+}
+
+input[type=file] {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.box {
+    width: 100%;
+    height: 50px;
+    background: var(--background);
+    border-radius: 6px;
+    box-shadow: inset 0 0 0 1px var(--line);
+    display: flex;
+    overflow: hidden;
+    padding: 12px 0;
+    margin-bottom: 16px;
+}
+
+.box.active {
+    background: var(--text);
+    color: #f8f9fa;
+}
+
+.box.active .icons .icon:not(.drop-area) {
+    width: 0;
+}
+
+.box.active .icons .icon.drop-area {
+    background: #f8f9fa;
+    margin-right: 10px;
+}
+
+.box .person {
+    color: var(--off-text);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    border-right: 1px solid var(--line);
+    font-size: 12pt;
+    line-height: 50px;
+    flex: 1;
+}
+
+.box .person .icon {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+.box .icons {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    line-height: 50px;
+    padding: 0 8px;
+    justify-content: flex-end;
+}
+
+.box .icons .icon {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    color: var(--icon);
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    transition: all ease 200ms;
+}
+
+.box .icons .icon:hover {
+    background: var(--item);
+}
+
+.box .icons .icon input[type='file'] {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.box .btn_active {
+    color: var(--red) !important;
+}
+
+.fab {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    background: #26A69A;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 60px;
+    color: var(--background);
+    box-shadow: 0 3px 10px #26A69Aaa;
+    cursor: pointer;
+    transition: all ease 200ms;
+    font-size: 20pt;
+    user-select: none;
+    z-index: 10;
+}
+
+.fab:hover {
+    transform: translateY(-10px);
+}
+
+.fab-menu {
+    width: 60px;
+    position: fixed;
+    right: 24px;
+    bottom: -100%;
+    opacity: 0;
+    transform: scale(0);
+    transition: all ease 500ms;
+    z-index: 9;
+}
+
+.fab-menu.show {
+    right: 24px;
+    bottom: 100px;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.fab-menu .fab-item {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #26A69A;
+    margin-bottom: 8px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 60px;
+    box-shadow: 0 3px 10px #26A69Aaa;
+    color: var(--background);
+    transition: all ease 200ms;
+    user-select: none;
+}
+
+.fab-menu .fab-item:hover {
+    transform: scale(1.1);
+}
+
+/* ========================================== File Manager */
+
+.file-manager {
+    flex: 1;
+    width: 1px;
+    overflow: hidden;
+}
+
+.file-manager .toolbar {
+    height: 40px;
+    background: var(--item);
+    display: flex;
+}
+
+.file-manager .toolbar .tool-item {
+    font-size: 21px !important;
+    width: 34px;
+    height: 34px;
+    margin: 3px 0 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 100%;
+    color: var(--icon);
+}
+
+.file-manager .toolbar .tool-item:hover {
+    background: var(--hover_icon);
+}
+
+.file-manager .folders_holder_parent {
+    background: var(--background);
+    box-shadow: inset 0 0 0 2px var(--item);
+    border-top: none;
+    height: calc(100% - 80px);
+}
+
+.file-manager .folders_holder {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.file-manager .folders {
+    /* width: 100%;
+    height: 100%; */
+    display: none;
+    flex: 1;
+    flex-direction: column;
+}
+
+.file-manager .folders.active {
+    display: flex;
+    /* height: calc(100% - 80px); */
+}
+
+.file-manager .folders .item {
+    overflow: hidden;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.file-manager .folders .item .folder-name::before {
+    content: "folder";
+    font-family: 'Material Icons';
+    color: #ffb74d;
+    font-size: 24px;
+    padding: 0 10px 0 16px;
+    top: 0;
+}
+
+.file-manager .folders .item.open>.folder-name::before {
+    content: "folder_open";
+}
+
+.file-manager .folders .item>.file-item::before {
+    content: "insert_drive_file";
+    color: #29b6f6;
+}
+
+.file-manager .folders .item .folder-name {
+    display: flex;
+    align-items: center;
+}
+
+.file-manager .folders .item .folder-name span {
+    padding-right: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-manager .folders .item .icon {
+    padding: 0 10px 0 16px;
+}
+
+.file-manager .folders .item .folder-name:hover,
+.item_active {
+    background: var(--item);
+    /* box-shadow: -30vw 0px 0 0 var(--item); */
+}
+
+.file-manager .folders .item .item {
+    position: relative;
+    margin-left: 28px;
+}
+
+.file-manager .folders .item.open {
+    height: auto;
+    overflow: visible;
+}
+
+.file-manager .folders .item {
+    border-left: solid 1px var(--line);
+}
+
+.toolbar[data-pos="0"] #create_new_folder,
+.toolbar[data-pos="0"] #add,
+.toolbar[data-pos="0"] #edit,
+.toolbar[data-pos="0"] #content_copy,
+.toolbar[data-pos="0"] #content_cut,
+.toolbar[data-pos="0"] #delete,
+.toolbar[data-pos="0"] #upload,
+.toolbar[data-pos="0"] #uploadfolder,
+.toolbar[data-pos="0"] #download,
+.toolbar[data-pos="0"] #content_paste,
+/* POS 1 */
+.toolbar[data-pos="1"] #content_cut,
+.toolbar[data-pos="1"] #delete,
+.toolbar[data-pos="1"] #create_new_folder,
+.toolbar[data-pos="1"] #add,
+.toolbar[data-pos="1"] #upload,
+.toolbar[data-pos="1"] #uploadfolder,
+.toolbar[data-pos="1"] #launch,
+.toolbar[data-pos="1"] #content_refresh,
+.toolbar[data-pos="1"] #download,
+/* POS 2 */
+.toolbar[data-pos="2"] #content_cut,
+.toolbar[data-pos="2"] #delete,
+.toolbar[data-pos="2"] #edit,
+.toolbar[data-pos="2"] #download,
+/* POS 3 */
+.toolbar[data-pos="3"] #create_new_folder,
+.toolbar[data-pos="3"] #add,
+.toolbar[data-pos="3"] #upload,
+.toolbar[data-pos="3"] #uploadfolder,
+.toolbar[data-pos="3"] #launch,
+.toolbar[data-pos="3"] #content_refresh,
+.toolbar[data-pos="3"] #content_paste,
+
+/* POS 4 */
+.toolbar[data-pos="4"] #download {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* =========================== Tab */
+
+.tabbar {
+    width: 100%;
+    height: 35px;
+    display: flex;
+    line-height: 40px;
+    overflow-x: auto;
+    overflow: hidden;
+}
+
+.tabbar .tab {
+    width: 100%;
+    min-width: 100px;
+    max-width: 250px;
+    height: 100%;
+    background: transparent;
+    padding: 0 0 0 16px;
+    border-radius: 16px 16px 0 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.tabbar .tab:not(.active)::before,
+.tabbar .tab:last-child::after {
+    width: 2px;
+    height: 18px;
+    content: '';
+    display: block;
+    position: absolute;
+    left: -1px;
+    top: 9px;
+    background: var(--line);
+}
+
+.tabbar .tab:first-child:before {
+    content: none !important;
+}
+
+.tabbar .tab.active+*::before {
+    opacity: 0;
+}
+
+.tabbar .tab:last-child::after {
+    left: unset;
+    right: -1px;
+}
+
+.tabbar .tab.active:last-child::after {
+    opacity: 0;
+}
+
+.tabbar .tab.active {
+    background: var(--item);
+}
+
+.tabbar .tab .icon {
+    padding: 4px;
+    margin-right: 6px;
+    float: right;
+    margin-top: 6px;
+    border-radius: 100px;
+    font-size: 16px;
+    color: var(--icon);
+}
+
+.tabbar .tab .icon:hover {
+    background: var(--red_hover);
+    color: var(--red);
+}
+
+.tabbar::-webkit-scrollbar-track {
+    background: var(--item);
+}
+
+@media screen and (max-width: 800px) {
+    .page {
+        flex-direction: column;
+    }
+
+    #parent-section {
+        flex: .4;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+
+    #right-section {
+        height: 1px;
+    }
+}

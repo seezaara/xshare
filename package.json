@@ -1,0 +1,35 @@
+{
+  "name": "xshare",
+  "version": "1.0.0",
+  "description": "wide Spectrum of share file options and streaming and localconnection",
+  "main": "index.js",
+  "dependencies": {
+    "multiparty": "^4.2.3"
+  },
+  "devDependencies": {
+    "electron": "^12.2.3",
+    "electron-builder": "^23.0.3"
+  },
+  "scripts": {
+    "dist": "electron-builder --x64",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "build": {
+    "productName": "xshare",
+    "appId": "x.share.com",
+    "win": {
+      "target": "nsis",
+      "icon": "www/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "portable": {
+      "artifactName": "share.exe"
+    }
+  }
+}

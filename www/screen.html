@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <title>Stream</title>
+</head>
+
+<body>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .main {
+            width: 100%;
+            height: calc(100% - 28px);
+        }
+
+        .scrolling {
+            overflow: scroll;
+        }
+
+        .scrolling::-webkit-scrollbar {
+            background: rgba(0, 0, 0, 0);
+            border-radius: 5px;
+            width: 15px;
+            height: 15px;
+        }
+
+        .scrolling::-webkit-scrollbar-track {
+            background: rgba(170, 170, 170, 0.15);
+            border-radius: 0px;
+        }
+
+        .scrolling::-webkit-scrollbar-thumb {
+            border-radius: 0px;
+            background: rgba(170, 170, 170, .9);
+        }
+
+        .scrolling::-webkit-scrollbar-corner {
+            background: rgba(170, 170, 170, 0);
+        }
+
+        #media {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .isFull {
+            height: 100% !important;
+        }
+    </style>
+    <div class="main ">
+        <video id="media" width="100%" autoplay=""></video>
+    </div>
+</body>
+ 
+<script type="text/javascript" src="../preload.js"></script>
+<script type="text/javascript" src="./js/head.js"></script>
+
+<script>
+    !function () { 
+        on('enter-full-screen', function () {
+            document.querySelector(".main").classList.add("isFull");
+        })
+        on('leave-full-screen', function () {
+            document.querySelector(".main").classList.remove("isFull");
+        });
+    }();
+</script>
+
+</html>
